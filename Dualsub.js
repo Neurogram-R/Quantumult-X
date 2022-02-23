@@ -8,9 +8,9 @@
         - Customized language support
  
     Manual:
-        Setting tool for Shortcuts: https://www.icloud.com/shortcuts/7b6ee34a64d9465f8abd8d1608251dca
+        Setting tool for Shortcuts: https://www.icloud.com/shortcuts/d0721d83a3a9441d81b2cdd5016dad14
 
-        Surge:
+        Quantumult X:
 
         [Script]
 
