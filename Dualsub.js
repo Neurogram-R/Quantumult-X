@@ -12,7 +12,7 @@
 
         Quantumult X:
 
-        [Script]
+        [rewrite_local]
 
         // All in one
         https:\/\/(.+media.(dss|star)ott|manifests.v2.api.hbo|.+hbomaxcdn|.+nflxvideo).(com|net)\/((.+(.vtt|-all-.+.m3u8.*))|hls.m3u8.+|\?o=\d+&v=\d+&e=.+) url script-response-body Dualsub.js
@@ -35,7 +35,7 @@
         https:\/\/setting.youtube.com\/\?action=(g|s)et url script-analyze-echo-response Dualsub.js
         http:\/\/www.youtube.com\/api\/timedtext.+ url script-request-header Dualsub.js
 
-        [MITM]
+        [mitm]
         hostname = *.media.dssott.com, *.media.starott.com, *.api.hbo.com, *.hbomaxcdn.com, *.nflxvideo.net, *.youtube.com
 
     Author:
