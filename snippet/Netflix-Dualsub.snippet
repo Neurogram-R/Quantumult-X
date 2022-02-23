@@ -1,0 +1,7 @@
+# Netflix Dualsub
+# Netflix subtitles add-ons
+
+hostname = *.nflxvideo.net
+
+https:\/\/.+nflxvideo.net\/\?o=\d+&v=\d+&e=.+ url script-response-body https://raw.githubusercontent.com/Neurogram-R/Quantumult-X/main/snippet/Dualsub.js
+https:\/\/.+nflxvideo.net\/\?action=(g|s)et url script-analyze-echo-response https://raw.githubusercontent.com/Neurogram-R/Quantumult-X/main/snippet/Dualsub.js
