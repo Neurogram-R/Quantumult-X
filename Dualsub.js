@@ -8,7 +8,7 @@
         - Customized language support
  
     Manual:
-        Setting tool for Shortcuts: https://www.icloud.com/shortcuts/d0721d83a3a9441d81b2cdd5016dad14
+        Setting tool for Shortcuts: https://www.icloud.com/shortcuts/136b52e6452b4a10b3ea647f925cddd0
 
         Quantumult X:
 
