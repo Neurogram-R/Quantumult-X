@@ -1,0 +1,7 @@
+# DisneyPlus Dualsub
+# Disney+, Star+ subtitles add-ons
+
+hostname = *.media.dssott.com, *.media.starott.com
+
+https:\/\/.+media.(dss|star)ott.com\/ps01\/disney\/.+(\.vtt|-all-.+\.m3u8.*) url script-response-body https://raw.githubusercontent.com/Neurogram-R/Quantumult-X/main/snippet/Dualsub.js
+https:\/\/.+media.(dss|star)ott.com\/\?action=(g|s)et url script-analyze-echo-response https://raw.githubusercontent.com/Neurogram-R/Quantumult-X/main/snippet/Dualsub.js
