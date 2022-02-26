@@ -1,0 +1,7 @@
+# ParamountPlus Dualsub
+# Paramount+ subtitles add-ons
+
+hostname = *.cbsaavideo.com, *.cbsivideo.com
+
+https:\/\/.+cbs(aa|i)video.com\/.+\.vtt(\?m=\d+)* url script-response-body https://raw.githubusercontent.com/Neurogram-R/Quantumult-X/main/Dualsub.js
+https:\/\/setting.cbsivideo.com\/\?action=(g|s)et url script-analyze-echo-response https://raw.githubusercontent.com/Neurogram-R/Quantumult-X/main/Dualsub.js
