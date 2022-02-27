@@ -2,12 +2,13 @@
     Dualsub for Quantumult X by Neurogram
  
         - Disney+, Star+, HBO Max official bilingual subtitles
+        - Disney+, Star+, HBO Max, Netflix, Paramount+ external subtitles
         - Disney+, Star+, HBO Max, Netflix, Paramount+ machine translation bilingual subtitles (Google, DeepL)
         - YouTube subtitles auto-translate
         - Customized language support
  
     Manual:
-        Setting tool for Shortcuts: https://www.icloud.com/shortcuts/1e6f1b9e1726476a9c6203e907c398cb
+        Setting tool for Shortcuts: https://www.icloud.com/shortcuts/511b3978ff284d39ab15a7191435c1d9
 
         Quantumult X:
 
@@ -51,7 +52,7 @@ let headers = $request.headers
 
 let default_settings = {
     Disney: {
-        type: "Official", // Official, Google, DeepL, Disable
+        type: "Official", // Official, Google, DeepL, External, Disable
         lang: "English [CC]",
         sl: "auto",
         tl: "English [CC]",
@@ -64,9 +65,10 @@ let default_settings = {
         subtitles_sl: "null",
         subtitles_tl: "null",
         subtitles_line: "null",
+        external_subtitles: "null"
     },
     HBOMax: {
-        type: "Official", // Official, Google, DeepL, Disable
+        type: "Official", // Official, Google, DeepL, External, Disable
         lang: "English CC",
         sl: "auto",
         tl: "en-US SDH",
@@ -79,9 +81,10 @@ let default_settings = {
         subtitles_sl: "null",
         subtitles_tl: "null",
         subtitles_line: "null",
+        external_subtitles: "null"
     },
     Netflix: {
-        type: "Google", // Google, DeepL, Disable
+        type: "Google", // Google, DeepL, External, Disable
         lang: "English",
         sl: "auto",
         tl: "en",
@@ -94,9 +97,10 @@ let default_settings = {
         subtitles_sl: "null",
         subtitles_tl: "null",
         subtitles_line: "null",
+        external_subtitles: "null"
     },
     Paramount: {
-        type: "Google", // Google, DeepL, Disable
+        type: "Google", // Google, DeepL, External, Disable
         lang: "English",
         sl: "auto",
         tl: "en",
@@ -109,6 +113,7 @@ let default_settings = {
         subtitles_sl: "null",
         subtitles_tl: "null",
         subtitles_line: "null",
+        external_subtitles: "null"
     },
     YouTube: {
         type: "Enable", // Enable, Disable
@@ -139,11 +144,13 @@ let setting = settings[service]
 if (url.match(/action=get/)) {
     delete setting.t_subtitles_url
     delete setting.subtitles
+    delete setting.external_subtitles
     $done({ status: "HTTP/1.1 200 OK", body: JSON.stringify(setting) })
 }
 
 if (url.match(/action=set/)) {
     let new_setting = JSON.parse($request.body)
+    if (new_setting.type != "External") settings[service].external_subtitles = "null"
     if (new_setting.type == "Reset") new_setting = default_settings[service]
     if (new_setting.type) settings[service].type = new_setting.type
     if (new_setting.lang) settings[service].lang = new_setting.lang
@@ -158,9 +165,11 @@ if (url.match(/action=set/)) {
     if (new_setting.subtitles_sl) settings[service].subtitles_sl = new_setting.subtitles_sl
     if (new_setting.subtitles_tl) settings[service].subtitles_tl = new_setting.subtitles_tl
     if (new_setting.subtitles_line) settings[service].subtitles_line = new_setting.subtitles_line
+    if (new_setting.external_subtitles) settings[service].external_subtitles = new_setting.external_subtitles.replace(/\r/g, "")
     $prefs.setValueForKey(JSON.stringify(settings), "settings")
     delete settings[service].t_subtitles_url
     delete settings[service].subtitles
+    delete settings[service].external_subtitles
     $done({ status: "HTTP/1.1 200 OK", body: JSON.stringify(settings[service]) })
 }
 
@@ -237,6 +246,17 @@ if (url.match(/\.vtt/) || service == "Netflix") {
     if (setting.type == "Google") machine_subtitles("Google")
 
     if (setting.type == "DeepL") machine_subtitles("DeepL")
+
+    if (setting.type == "External") external_subtitles()
+}
+
+function external_subtitles() {
+    let patt = new RegExp(`(\\d+\\n)*\\d+:\\d\\d:\\d\\d.\\d\\d\\d --> \\d+:\\d\\d:\\d\\d.\\d.+(\\n|.)+`)
+    if (!setting.external_subtitles.match(patt)) $done({})
+    if (!body.match(patt)) $done({})
+    let external = setting.external_subtitles.replace(/(\d+:\d\d:\d\d),(\d\d\d)/g, "$1.$2")
+    body = body.replace(patt, external.match(patt)[0])
+    $done({ body: body })
 }
 
 async function machine_subtitles(type) {
