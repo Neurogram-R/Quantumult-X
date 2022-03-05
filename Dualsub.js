@@ -15,7 +15,7 @@
         [rewrite_local]
 
         // All in one
-        ^http.+(media.(dss|star)ott|manifests.v2.api.hbo|hbomaxcdn|nflxvideo|cbs(aa|i)video|cloudfront|akamaihd|avi-cdn|huluim).(com|net)\/((.+(\.vtt(\?m=\d+)*|-all-.+\.m3u8.*))|hls\.m3u8.+|\?o=\d+&v=\d+&e=.+|\w+\/2\$.+\/[a-zA-Z0-9-]+\.m3u8) url script-response-body Dualsub.js
+        ^http.+(media.(dss|star)ott|manifests.v2.api.hbo|hbomaxcdn|nflxvideo|cbs(aa|i)video|cloudfront|akamaihd|avi-cdn|huluim).(com|net)\/(.+\.vtt($|\?m=\d+)|.+-all-.+\.m3u8.*|hls\.m3u8.+|\?o=\d+&v=\d+&e=.+|\w+\/2\$.+\/[a-zA-Z0-9-]+\.m3u8) url script-response-body Dualsub.js
         https:\/\/setting.(media.dssott|hbomaxcdn|nflxvideo|youtube|cbsivideo|cloudfront|huluim).(com|net)\/\?action=(g|s)et url script-analyze-echo-response Dualsub.js
         https:\/\/www.youtube.com\/api\/timedtext.+ url script-request-header Dualsub.js
 
@@ -28,7 +28,7 @@
         https:\/\/setting.hbomaxcdn.com\/\?action=(g|s)et url script-analyze-echo-response Dualsub.js
 
         //Hulu individual
-        ^http.+huluim.com\/.+\.vtt url script-response-body Dualsub.js
+        ^http.+huluim.com\/.+\.vtt$ url script-response-body Dualsub.js
         https:\/\/setting.huluim.com\/\?action=(g|s)et url script-analyze-echo-response Dualsub.js
 
         // Netflix individual
