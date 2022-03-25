@@ -90,6 +90,7 @@ async function douban_addons() {
 }
 
 async function collect_movie() {
+    if ($response) $done({})
     let options = {
         url: `https://frodo.douban.com/api/v2/movie/${movieId[1]}?apiKey=0ac44ae016490db2204ce0a042db2916`,
         method: "GET",
