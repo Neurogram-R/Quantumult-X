@@ -215,7 +215,7 @@ if (url.match(/action=get/)) {
     delete setting.t_subtitles_url
     delete setting.subtitles
     delete setting.external_subtitles
-    $done({ status: "HTTP/1.1 200 OK", body: JSON.stringify(setting) })
+    $done({ status: "HTTP/1.1 200 OK", body: JSON.stringify(setting), headers: { "Content-Type": "application/json" } })
 }
 
 if (url.match(/action=set/)) {
@@ -241,7 +241,7 @@ if (url.match(/action=set/)) {
     delete settings[service].t_subtitles_url
     delete settings[service].subtitles
     delete settings[service].external_subtitles
-    $done({ status: "HTTP/1.1 200 OK", body: JSON.stringify(settings[service]) })
+    $done({ status: "HTTP/1.1 200 OK", body: JSON.stringify(settings[service]), headers: { "Content-Type": "application/json" } })
 }
 
 let body = $response.body
