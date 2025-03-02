@@ -1,5 +1,5 @@
 /*
-    Douban Movie Add-ons for Surge by Neurogram
+    Douban Movie Add-ons for Quantumult X by Neurogram
 
         - 豆瓣电影网页插件
         - 快捷跳转自定义网站搜索
@@ -7,7 +7,7 @@
 
     使用说明
 
-        [Script]
+        [rewrite_local]
         https:\/\/m(ovie)*\.douban\.com\/(movie\/)*subject\/.+ url script-response-body Douban.js
 
         [MITM]
